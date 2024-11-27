@@ -49,29 +49,26 @@ function Home() {
   const [mp, setMp] = useState([]);
   const [senator, setSenator] = useState([]);
   const [tweet, setTweet] = useState("");
-  const [leads, setLeads] = useState();
   const [mainData, setMainData] = useState({});
   const [typData, setTypData] = useState({
     thankYouMessage: "Please enter a thank you message on the dashboard",
     secondThankYouMessage: "Please enter fill this field in the dashboard",
     repeatButtonTyp: "Please fill in this field on the dashboard",
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [allDataIn, setAllDataIn] = useState([]);
   const [colors, setColors] = useState({});
   const [formFields, setFormFields] = useState([]);
   useEffect(() => {
    const getInitialState = async (backendURLBase,id,clientId, campaignType) => { 
     const initialState = await fetchMainContent(backendURLBase,id,clientId, campaignType)
-    console.log(initialState)
     const pageData = initialState.data[0]
-    console.log(pageData)
     if(initialState.data.length > 0 ) {
-      console.log(pageData.ty)
       const{mainform, emailform, emailPreview} = pageData
       setMainData({mainform, emailform, emailPreview})
       setColors(pageData.style)
       setTypData(pageData.ty)
+      setLoading(false)
     }
    }
    getInitialState(backendURLBase,id,clientId, campaignType)

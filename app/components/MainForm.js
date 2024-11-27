@@ -282,6 +282,7 @@ const MainForm = ({
                   colors={colors}
                   backendURLBase={backendURLBase}
                   endpoints={endpoints}
+                  setActiveSection={setActiveSection}
                 />
               ))
             ) : (
@@ -309,6 +310,7 @@ const MainForm = ({
                   colors={colors}
                   backendURLBase={backendURLBase}
                   endpoints={endpoints}
+                  setActiveSection={setActiveSection}
                 />
               ))
             ) : (
@@ -345,6 +347,7 @@ const MainForm = ({
         setAllDataIn={setAllDataIn}
         backendURLBase={backendURLBase}
         endpoints={endpoints}
+        setActiveSection={setActiveSection}
       />
     ) : (
       <Alert variant="danger">

@@ -8,10 +8,8 @@ import { fetchData } from "../assets/petitions/fetchData";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
 import { animateScroll as scroll } from "react-scroll";
 import LoadingMainForm from "./LoadingMainForm";
-import { setActiveLink } from "react-scroll/modules/mixins/scroller";
 
 const ManualEmailForm = ({
-
   dataUser,
   setDataUser,
   emailData,
@@ -45,7 +43,7 @@ const ManualEmailForm = ({
       clientId,
       `to=${allDataIn.length > 0 ? allDataIn : emailData.email }&subject=${currentSubject}&firstName=${
         dataUser.userName
-      }&emailData=${dataUser.emailUser}&text=${dataUser.message.replace(
+      }&emailData=${dataUser.emailUser}&text=${dataUser.message?.replace(
         /\n\r?/g,
         "<br/>"
       )}`
@@ -99,6 +97,7 @@ const ManualEmailForm = ({
     scroll.scrollTo(1000);
     return <LoadingMainForm cl={cl} />;
   };
+  console.log(mainData)
   return (
     <>
       {isLoading == true ? (
@@ -119,11 +118,11 @@ const ManualEmailForm = ({
             <div>
               <>
                 <h3 className="ia-instructions-title main-text-title">
-                  {mainData.titleNoAI ? mainData.titleNoAI : "Write your email"}
+                  {mainData.emailform?.title?.text ? mainData.emailform?.title?.text : "Write your email"}
                 </h3>
                 <p className="ia-instructions-p main-text-instruction">
-                  {mainData.intructionsNoAI
-                    ? mainData.intructionsNoAI
+                  {mainData.emailform?.instructions?.text
+                    ? mainData.emailform?.instructions?.text
                     : "Customer instructions for the user. Here the client can give the user recommendations on what to mention in the email and how to write the subject."}
                 </p>
               </>
@@ -151,7 +150,7 @@ const ManualEmailForm = ({
                         as="textarea"
                         rows={12}
                         name="message"
-                        defaultValue={dataUser.message}
+                        defaultValue={mainData.emailform?.message?.text}
                         className="email-ia-text-area"
                         required
                       />

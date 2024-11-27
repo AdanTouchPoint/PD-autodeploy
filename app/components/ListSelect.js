@@ -40,13 +40,11 @@ const ListSelect = ({
     //  console.log(selectedEmails, 'allDataIn')
     if (checklistStates.every((state) => !state)) {
       handleShow();
-      setActiveSection('emailform')
     } else {
       setAllDataIn(selectedEmails);
       setEmailData({
         ...dataUser,
       });
-
       fetchLeads(
         true,
         backendURLBase,
@@ -57,7 +55,7 @@ const ListSelect = ({
         "NA",
         "Multiples-representatives-selected-lead"
       );
-
+      setActiveSection('emailform')
     }
   };
   return (

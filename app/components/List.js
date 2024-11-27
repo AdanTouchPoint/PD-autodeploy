@@ -8,15 +8,13 @@ const List = ({
   mps,
   dataUser,
   setEmailData,
-
   tweet,
-
   colors,
   emailData,
-
   backendURLBase,
   endpoints,
   clientId,
+  setActiveSection
 }) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -53,7 +51,7 @@ const List = ({
       ...mps,
     });
     setMany(false);
-
+    setActiveSection('emailform')
   };
   const clickPhone = () => {
     fetchLeads(
