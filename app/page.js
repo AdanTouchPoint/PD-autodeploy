@@ -29,7 +29,7 @@ function Home() {
     toGetRepresentativesPerStates: "/representatives-state/",
     toGetRepresentativesPerParty: "/representatives-party/",
     toGetAllRepresentatives: "/all-senators/",
-    toGetRepresentativesByCp: "/find-mp-demo/",
+    toGetRepresentativesByCp: "/find-mp/",
     toGetMainData: "/main/",
     toGetThankYouMessage: "/typ-message/",
     toGetTweets: "/tweets/",
