@@ -3,14 +3,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MainForm from "./components/MainForm";
 import LoadingMainForm from "./components/LoadingMainForm";
-import { fetchEmailData } from "./assets/petitions/fetchEmailData";
-import { fetchTweet } from "./assets/petitions/fetchTweet";
-import { fetchTYM } from "./assets/petitions/fetchTYM";
 import { fetchMainContent } from "./assets/petitions/fetchMainContent";
-import { fetchAllLeads } from "./assets/petitions/fetchLeads";
-import { fetchConfig } from "./assets/petitions/fetchConfig";
-import { fetchColors } from "./assets/petitions/fetchColors";
-import { get } from "react-scroll/modules/mixins/scroller";
 function Home() {
   const [configurations, setConfigurations] = useState({
     lenguage: "es",
@@ -82,35 +75,35 @@ function Home() {
       );
       document.documentElement.style.setProperty(
         "--main-texts-color",
-        colors.text_color
+        colors.textColor
       );
       document.documentElement.style.setProperty(
         "--main-inputs-bg-color",
-        colors.inputBackgroundd
+        colors.inputBackground
       );
       document.documentElement.style.setProperty(
         "--main-option-text-and-border-color",
-        colors.input_text_color
+        colors.inputTextColor
       );
       document.documentElement.style.setProperty(
         "--links-checkbox-somebtns-color",
-        colors.link_color
+        colors.linkColor
       );
       document.documentElement.style.setProperty(
         "--primary-btn-bg-color",
-        colors.buttonA_color
+        colors.buttonColor
       );
       document.documentElement.style.setProperty(
         "--primary-btn-font-color",
-        colors.buttonA_text_color
+        colors.buttonTextColor
       );
       document.documentElement.style.setProperty(
         "--back-btns-bg-color",
-        colors.buttonB_color
+        colors.buttonBColor
       );
       document.documentElement.style.setProperty(
         "--back-btns-font-color",
-        colors.buttonB_text_color
+        colors.buttonBTextColor
       );
     }
   }, [colors]);

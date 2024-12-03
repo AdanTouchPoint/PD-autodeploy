@@ -73,11 +73,11 @@ const MainForm = ({
       e.preventDefault();
       console.log(dataUser, "dataUser");
       if (
-        !isValidEmail(dataUser.emailUser) ||
+        !isValidEmail(dataUser?.emailUser) ||
         tac === false ||
         Object.getOwnPropertyNames(dataUser).length === 0 ||
-        dataUser.userName === undefined ||
-        dataUser.emailUser === undefined
+        dataUser?.userName === undefined ||
+        dataUser?.emailUser === undefined
       ) {
         setError(true);
         return;
@@ -361,7 +361,7 @@ const MainForm = ({
   const renderSection = () => {
     switch (activeSection) {
       case 'mainForm':
-        return renderMainFormSection(title,instructions,mainData)
+        return renderMainFormSection(title,instructions,mainData,error)
       case 'listSection':
         return renderListSection(mainData,senator,mp) ;
       case 'listSelect':
@@ -392,7 +392,7 @@ const MainForm = ({
         setActiveSection={setActiveSection}
       />;
   default: 
-  return renderMainFormSection(title,instructions,mainData)
+  return renderMainFormSection(title,instructions,mainData,error)
     }
   };
   console.log(mainData);
