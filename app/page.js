@@ -61,6 +61,7 @@ function Home() {
       setMainData({mainform, emailform, emailPreview})
       setColors(pageData.style)
       setTypData(pageData.ty)
+      setTweet(emailform.tweetMessage?.text)
       setLoading(false)
     }
    }
