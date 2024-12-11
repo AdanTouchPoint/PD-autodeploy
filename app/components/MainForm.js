@@ -71,7 +71,6 @@ const MainForm = ({
     };
     const click = async (e) => {
       e.preventDefault();
-      console.log(dataUser, "dataUser");
       if (
         !isValidEmail(dataUser?.emailUser) ||
         tac === false ||
@@ -129,6 +128,7 @@ const MainForm = ({
         {/* <h3 className="find-her-mp-text main-texts-color">{mainData.firstFormLabel1}</h3> */}
         <div className="fields-form">
           {mainData.mainform?.mainFormInputs?.map((field, key) => {
+            const fieldText = field.text
             return field.text !== "state" ? (
               <Form.Group className="field" key={key}>
                 <Form.Label
@@ -148,6 +148,12 @@ const MainForm = ({
                       ? "emailUser"
                       : field.text
                   }
+                  defaultValue={ 
+                    field.text === 'name' 
+                    ? dataUser.userName
+                    : field.text === "email"
+                    ? dataUser.emailUser 
+                    : dataUser[fieldText] }
                   onChange={handleChange}
                   className="input-color main-form-inputs"
                   required
@@ -203,6 +209,7 @@ const MainForm = ({
             className="links-checkboxes-color terms-and-cond-input"
             // bsPrefix="custom-checkbox"
             required
+            defaultValue={mainData?.tac}
             label={
               <a
                 target={"_blank"}
@@ -383,7 +390,7 @@ const MainForm = ({
         allDataIn={allDataIn}
         setActiveSection={setActiveSection}
       />;
-      case 'ty':
+      case 'typ':
         return <ThankYou
         emailData={emailData}
         setDataUser={setDataUser}
@@ -397,7 +404,6 @@ const MainForm = ({
   return renderMainFormSection(title,instructions,mainData,error)
     }
   };
-  console.log(mainData);
   if (!mainData) return "loading datos";
   if (!mp) return "loading datos";
   return (

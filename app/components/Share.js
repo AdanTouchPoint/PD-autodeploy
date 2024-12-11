@@ -6,20 +6,19 @@ import TwitterIcon from "./icons/TwitterIcon";
 import LinkedinIcon from "./icons/LinkedinIcon";
 import "./share.css";
 const Share = ({shareMessage,shareUrl, colors }) => {  
-  console.log(colors)
   return (
     <div className="share-buttoneer" >
       <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#yodecidocomomemuevo" className="share-buttons">
-      <FacebookIcon primaryColor={colors.backgroundColor} secundaryColor={colors.link_color}  />
+      <FacebookIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor}  />
       </FacebookShareButton>
       <TwitterShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'}className="share-buttons">
-      <TwitterIcon primaryColor={colors.backgroundColor} secundaryColor={colors.link_color} />
+      <TwitterIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </TwitterShareButton>
       <WhatsappShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'} className="share-buttons">
-      <WhatsappIcon primaryColor={colors.backgroundColor} secundaryColor={colors.link_color} />
+      <WhatsappIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </WhatsappShareButton>
       <LinkedinShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'} className="share-buttons">
-      <LinkedinIcon primaryColor={colors.backgroundColor} secundaryColor={colors.link_color} />
+      <LinkedinIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </LinkedinShareButton>
       <Head>
         {/* Script de Facebook */}

@@ -20,10 +20,17 @@ const ManualEmailForm = ({
   mainData,
   isLoading,
   allDataIn,
-  setActiveSection
+  setActiveSection,
 }) => {
   const [valid, setValid] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const errorHandler = (message) => {
+    return (
+      <Alert variant="danger">
+        {message}
+      </Alert>
+    );
+  };
   const handleMessageChange = (e) => {
     e.preventDefault();
     setDataUser({
@@ -32,23 +39,47 @@ const ManualEmailForm = ({
       message: e.target.name === "message" ? e.target.value : dataUser.message,
     });
   };
+
+  const verifyData = async (dataUser) =>{
+    const { subject, message } = await dataUser;
+    if (
+      subject === undefined ||
+      message === undefined ||
+      subject === "" ||
+      message === ""
+    ) {
+      setValid(false)
+      setError("form");
+      const options = {
+        duration: 100,
+        smooth: true,
+      };
+      scroll.scrollToTop(options)
+      return false
+    }
+    return true
+  }
   const handleSend = async (e) => {
     e.preventDefault();
-    let currentSubject = dataUser.subject;
-    console.log(currentSubject);
+    const { subject, message, emailUser, userName } = await dataUser;
+    setError("")
+    const validData = await verifyData(dataUser)
+    if (validData === false ) {
+      setError("form")
+      return
+    }
+    setValid(true)
+    let currentSubject = subject;
+    const messageEmail = message?.replace(/\n\r?/g, "<br/>");
     const payload = await fetchData(
       "GET",
       backendURLBaseServices,
       endpoints.toSendBatchEmails,
       clientId,
-      `to=${allDataIn.length > 0 ? allDataIn : emailData.email }&subject=${currentSubject}&firstName=${
-        dataUser.userName
-      }&emailData=${dataUser.emailUser}&text=${dataUser.message?.replace(
-        /\n\r?/g,
-        "<br/>"
-      )}`
+      `to=${
+        allDataIn.length > 0 ? allDataIn : emailData.email
+      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(messageEmail)}`
     );
-    const messageEmail = dataUser.message.replace(/\n\r?/g, "<br/>");
     if (payload.success === true) {
       fetchLeads(
         true,
@@ -60,7 +91,7 @@ const ManualEmailForm = ({
         messageEmail,
         "message-single-representative-lead"
       );
-      setActiveSection('typ')
+      setActiveSection("typ");
     }
     if (payload.success !== true) {
       fetchLeads(
@@ -73,42 +104,28 @@ const ManualEmailForm = ({
         messageEmail,
         "message-sinlge-representative-not-sended-lead"
       );
-      return (
-        <Alert>
-          El correo no ha sido enviado con éxito, por favor intente de nuevo más
-          tarde
-          <Button
-            className={"button-email-form"}
-            variant={"dark"}
-            onClick={back}
-          >
-            Regresar
-          </Button>
-        </Alert>
-      );
+      setError("email");
     }
   };
   const back = (e) => {
     e.preventDefault();
-    console.log(dataUser, "dataUser");
-    setActiveSection('listSection')
+    setActiveSection("listSection");
   };
   const loading = (cl) => {
     scroll.scrollTo(1000);
     return <LoadingMainForm cl={cl} />;
   };
-  console.log(mainData)
   return (
     <>
       {isLoading == true ? (
         <div className="emailContainer">{loading("spinner-containerB")}</div>
       ) : (
-        <div className={"emailContainer"} >
-          {error ? (
-            <Alert variant={"danger"}>
-              All fields are required, please fill in the missing ones.
-            </Alert>
-          ) : null}
+        <div className={"emailContainer"}>
+          {error === "form"
+            ? errorHandler("llena todos los campos")
+            : error === "email"
+            ? errorHandler("nose envio el email ")
+            : null}
           <Form
             name="fm-email"
             onSubmit={handleSend}
@@ -118,7 +135,9 @@ const ManualEmailForm = ({
             <div>
               <>
                 <h3 className="ia-instructions-title main-text-title">
-                  {mainData.emailform?.title?.text ? mainData.emailform?.title?.text : "Write your email"}
+                  {mainData.emailform?.title?.text
+                    ? mainData.emailform?.title?.text
+                    : "Write your email"}
                 </h3>
                 <p className="ia-instructions-p main-text-instruction">
                   {mainData.emailform?.instructions?.text
@@ -140,6 +159,7 @@ const ManualEmailForm = ({
                         type="text"
                         defaultValue={dataUser.subject}
                         className="subject-input"
+                        required
                       />
                     </Form.Group>
                     <Form.Group>

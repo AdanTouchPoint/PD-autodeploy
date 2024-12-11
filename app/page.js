@@ -39,6 +39,7 @@ function Home() {
     toGetAllLeads: "/leads/",
     toGetColors: "/theme/",
   });
+  const [err,setErr]=useState(false)
   const [mp, setMp] = useState([]);
   const [senator, setSenator] = useState([]);
   const [tweet, setTweet] = useState("");
@@ -55,8 +56,12 @@ function Home() {
   useEffect(() => {
    const getInitialState = async (backendURLBase,id,clientId, campaignType) => { 
     const initialState = await fetchMainContent(backendURLBase,id,clientId, campaignType)
-    const pageData = initialState.data[0]
-    if(initialState.data.length > 0 ) {
+    if (initialState === false) {
+
+      return setErr(true)
+    }
+    const pageData = initialState?.data[0]
+    if(initialState.data?.length > 0 ) {
       const{mainform, emailform, emailPreview} = pageData
       setMainData({mainform, emailform, emailPreview})
       setColors(pageData.style)
@@ -110,8 +115,10 @@ function Home() {
   }, [colors]);
   return (
     <>
+      {err && (<h1>Error</h1>)}
       {loading && <LoadingMainForm cl={"spinner-container"} />}
       {!loading && (
+        
         <MainForm
           configurations={configurations}
           setEmailData={setEmailData}
