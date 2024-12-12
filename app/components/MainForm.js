@@ -95,7 +95,7 @@ const MainForm = ({
       setActiveSection('listSection')
       scroll.scrollToBottom();
       fetchLeads(
-        true,
+        "NA",
         backendURLBase,
         endpoints,
         clientId,

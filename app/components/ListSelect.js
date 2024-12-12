@@ -46,7 +46,7 @@ const ListSelect = ({
         ...dataUser,
       });
       fetchLeads(
-        true,
+        "NA",
         backendURLBase,
         endpoints,
         clientId,

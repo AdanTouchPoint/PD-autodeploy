@@ -32,12 +32,12 @@ const List = ({
       window.open(`https://twitter.com/intent/tweet?text=${tweetText}`); //1
       return;
     }
-    return console.log("vacio");
+    return;
   };
   const click = (e) => {
     e.preventDefault();
     fetchLeads(
-      true,
+      "NA",
       backendURLBase,
       endpoints,
       clientId,
@@ -55,7 +55,7 @@ const List = ({
   };
   const clickPhone = () => {
     fetchLeads(
-      true,
+      "NA",
       backendURLBase,
       endpoints,
       clientId,
