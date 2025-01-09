@@ -11,6 +11,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { fetchRepresentatives } from "../assets/petitions/fetchRepresentatives";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
 import LoadingMainForm from "./LoadingMainForm";
+import EmailPreview from "./EmailPreview";
 const MainForm = ({
   dataUser,
   setDataUser,
@@ -94,16 +95,6 @@ const MainForm = ({
       ).catch((error) => console.log("error", error));
       setActiveSection('listSection')
       scroll.scrollToBottom();
-      fetchLeads(
-        "NA",
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        emailData,
-        "NA",
-        "basic-data-user"
-      );
     };
     return(
       <div className={"container container-content"}>
@@ -378,6 +369,20 @@ const MainForm = ({
       case 'emailform':
         return <ManualEmailForm
         many={many}
+        dataUser={dataUser}
+        emailData={emailData}
+        setEmailData={setEmailData}
+        setDataUser={setDataUser}
+        clientId={clientId}
+        endpoints={endpoints}
+        backendURLBase={backendURLBase}
+        backendURLBaseServices={backendURLBaseServices}
+        mainData={mainData}
+        allDataIn={allDataIn}
+        setActiveSection={setActiveSection}
+      />;
+      case 'emailPreview':
+        return <EmailPreview
         dataUser={dataUser}
         emailData={emailData}
         setEmailData={setEmailData}

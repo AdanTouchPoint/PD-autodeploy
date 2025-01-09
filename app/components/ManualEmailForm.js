@@ -91,7 +91,7 @@ const ManualEmailForm = ({
         messageEmail,
         "message-single-representative-lead"
       );
-      setActiveSection("typ");
+      setActiveSection("emailPreview");
     }
     if (payload.success !== true) {
       fetchLeads(

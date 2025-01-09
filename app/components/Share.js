@@ -8,7 +8,7 @@ import "./share.css";
 const Share = ({shareMessage,shareUrl, colors }) => {  
   return (
     <div className="share-buttoneer" >
-      <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#yodecidocomomemuevo" className="share-buttons">
+      <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#please fill" className="share-buttons">
       <FacebookIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor}  />
       </FacebookShareButton>
       <TwitterShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'}className="share-buttons">

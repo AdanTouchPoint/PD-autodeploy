@@ -26,7 +26,7 @@ const ThankYou = ({
           </h5>
           
           <h5 className="share-text">
-          {typData.tymessage
+          {typData.shareText?.text
               ? typData.shareText?.text
               : 'Share text'}
           </h5>
