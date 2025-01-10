@@ -93,7 +93,7 @@ const EmailPreview = ({
   };
   const back = (e) => {
     e.preventDefault();
-    setActiveSection("emailForm");
+    setActiveSection("emailform");
   };
   return (
     <>

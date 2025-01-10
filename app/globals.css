@@ -71,6 +71,20 @@ font-size: 24px;
  
 }
 /* ----------------------------End of Mainform------------------------------------------------------- */
+/*---Email Preview---*/
+.email-sheet {
+  /*background-color: #fff; /* Fondo blanco */
+  border: 1px solid #3a4141; /* Borde del contorno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para efecto flotante */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  width: 100%; /* Ancho ajustado al contenedor */
+  max-width: 1000px; /* Ancho máximo */
+  margin-bottom: 20px; /* Separación del resto del contenido */
+  font-family: Arial, sans-serif; /* Fuente limpia */
+  position: center;
+  
+}
 /* ----------------------------List------------------------------------------------------------------ */
 .do-again-btn{
   color: var(--links-checkbox-somebtns-color);
