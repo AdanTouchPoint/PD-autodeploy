@@ -24,9 +24,11 @@ const ManualEmailForm = ({
 }) => {
   useEffect(() => {
     const text = mainData.emailform?.message?.text
+    const sub =  mainData.emailform?.subject?.text 
     setDataUser({
       ...dataUser,
       message: text,
+      subject: sub,
     });
   }, []);
   const [valid, setValid] = useState(false);
@@ -164,7 +166,7 @@ const ManualEmailForm = ({
                         onChange={handleMessageChange}
                         name="subject"
                         type="text"
-                        defaultValue={mainData.emailform?.subject?.text}
+                        defaultValue={dataUser.subject}
                         className="subject-input"
                         required
                       />
@@ -177,7 +179,7 @@ const ManualEmailForm = ({
                         as="textarea"
                         rows={12}
                         name="message"
-                        defaultValue={mainData.emailform?.message?.text}
+                        defaultValue={dataUser.message}
                         className="email-ia-text-area"
                         required
                       />
