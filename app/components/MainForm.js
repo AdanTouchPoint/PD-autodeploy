@@ -34,7 +34,7 @@ const MainForm = ({
   colors,
   formFields,
 }) => {
-  const [activeSection, setActiveSection] = useState('emailPreview');
+  const [activeSection, setActiveSection] = useState('');
   const [showLoadSpin, setShowLoadSpin] = useState(false);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState(false);
@@ -251,6 +251,7 @@ const MainForm = ({
       e.preventDefault;
       setActiveSection('mainform')
     };
+    console.log(mainData.emailform)
     return( 
         <div className={"container-content senators-container"}>
         <h3 className="main-texts-color instruction-text">

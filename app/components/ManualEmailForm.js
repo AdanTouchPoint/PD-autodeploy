@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Button from "react-bootstrap/cjs/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/cjs/Col";
@@ -22,6 +22,13 @@ const ManualEmailForm = ({
   allDataIn,
   setActiveSection,
 }) => {
+  useEffect(() => {
+    const text = mainData.emailform?.message?.text
+    setDataUser({
+      ...dataUser,
+      message: text,
+    });
+  }, []);
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
   const errorHandler = (message) => {
@@ -157,7 +164,7 @@ const ManualEmailForm = ({
                         onChange={handleMessageChange}
                         name="subject"
                         type="text"
-                        defaultValue={dataUser.subject}
+                        defaultValue={mainData.emailform?.subject?.text}
                         className="subject-input"
                         required
                       />
