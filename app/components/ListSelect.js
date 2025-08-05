@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/cjs/Button";
 import Modal from "react-bootstrap/Modal";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
+import { useStateContext } from "../context/StateContext";const ListSelect = ({ emails }) => {
+  const {
+    setAllDataIn,
+    dataUser,
+    setEmailData,
+    emailData,
+    backendURLBase,
+    endpoints,
+    clientId,
+    setActiveSection,
+  } = useStateContext();
 
-const ListSelect = ({
-  emails,
-  setAllDataIn,
-  dataUser,
-  setEmailData,
-  emailData,
-  backendURLBase,
-  endpoints,
-  clientId,
-  setActiveSection
-}) => {
   const [checklistStates, setChecklistStates] = useState(
     emails?.map(() => true) || []
   );
@@ -28,7 +28,7 @@ const ListSelect = ({
   // console.log(emails)
   const back = (e) => {
     e.preventDefault();
-    setActiveSection('list')
+    setActiveSection('listSection');
   };
   const click = async () => {
     const selectedMps = await emails.filter(
@@ -55,7 +55,7 @@ const ListSelect = ({
         "NA",
         "Multiples-representatives-selected-lead"
       );
-      setActiveSection('emailform')
+      setActiveSection('emailform');
     }
   };
   return (
@@ -119,3 +119,4 @@ const ListSelect = ({
 };
 
 export default ListSelect;
+

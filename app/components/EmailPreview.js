@@ -4,18 +4,21 @@ import Button from "react-bootstrap/cjs/Button";
 import Alert from "react-bootstrap/Alert";
 import { fetchData } from "../assets/petitions/fetchData";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
+import { useStateContext } from "../context/StateContext";
 
-const EmailPreview = ({
-  dataUser,
-  setActiveSection,
-  emailData,
-  clientId,
-  backendURLBase,
-  endpoints,
-  backendURLBaseServices,
-  mainData,
-  allDataIn,
-}) => {
+const EmailPreview = () => {
+  const {
+    dataUser,
+    setActiveSection,
+    emailData,
+    clientId,
+    backendURLBase,
+    endpoints,
+    backendURLBaseServices,
+    mainData,
+    allDataIn,
+  } = useStateContext();
+
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
   const errorHandler = (message) => {
@@ -56,11 +59,7 @@ const EmailPreview = ({
       backendURLBaseServices,
       endpoints.toSendBatchEmails,
       clientId,
-      `to=${
-        allDataIn.length > 0 ? allDataIn : emailData.email
-      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(
-        messageEmail
-      )}`
+      `to=${allDataIn.length > 0 ? allDataIn : emailData.email}&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(messageEmail)}`
     );
 
     if (payload.success === true) {

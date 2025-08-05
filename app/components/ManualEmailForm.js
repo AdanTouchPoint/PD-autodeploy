@@ -8,20 +8,22 @@ import { fetchData } from "../assets/petitions/fetchData";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
 import { animateScroll as scroll } from "react-scroll";
 import LoadingMainForm from "./LoadingMainForm";
+import { useStateContext } from "../context/StateContext";
 
-const ManualEmailForm = ({
-  dataUser,
-  setDataUser,
-  emailData,
-  clientId,
-  backendURLBase,
-  endpoints,
-  backendURLBaseServices,
-  mainData,
-  isLoading,
-  allDataIn,
-  setActiveSection,
-}) => {
+const ManualEmailForm = () => {
+  const {
+    dataUser,
+    setDataUser,
+    emailData,
+    clientId,
+    backendURLBase,
+    endpoints,
+    backendURLBaseServices,
+    mainData,
+    allDataIn,
+    setActiveSection,
+  } = useStateContext();
+
   useEffect(() => {
     const text = mainData.emailform?.message?.text
     const sub =  mainData.emailform?.subject?.text 
@@ -30,7 +32,7 @@ const ManualEmailForm = ({
       message: text,
       subject: sub,
     });
-  }, []);
+  }, [mainData.emailform?.message?.text, mainData.emailform?.subject?.text,]);
   const [valid, setValid] = useState(false);
   const [error, setError] = useState("");
   const errorHandler = (message) => {
@@ -83,11 +85,11 @@ const ManualEmailForm = ({
     const payload = await fetchData(
       "GET",
       backendURLBaseServices,
-      endpoints.toSendBatchEmails,
+      endpoints.toSendEmails,
       clientId,
       `to=${
         allDataIn.length > 0 ? allDataIn : emailData.email
-      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser}&text=${encodeURIComponent(messageEmail)}`
+      }&subject=${currentSubject}&firstName=${userName}&emailData=${emailUser ? emailUser : "test@test.com"}&text=${encodeURIComponent(messageEmail)}`
     );
     if (payload.success === true) {
       fetchLeads(
@@ -126,9 +128,9 @@ const ManualEmailForm = ({
   };
   return (
     <>
-      {isLoading == true ? (
+      {/* {isLoading == true ? (
         <div className="emailContainer">{loading("spinner-containerB")}</div>
-      ) : (
+      ) : ( */}
         <div className={"emailContainer"}>
           {error === "form"
             ? errorHandler("llena todos los campos")
@@ -208,9 +210,10 @@ const ManualEmailForm = ({
             </div>
           </Form>
         </div>
-      )}
+      {/* )} */}
     </>
   );
 };
 
 export default ManualEmailForm;
+

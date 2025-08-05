@@ -1,0 +1,44 @@
+Plan de Mejoras
+
+#### 1. Arquitectura y Calidad del Código (Alto Impacto)
+
+Estas mejoras son fundamentales para hacer la aplicación más mantenible, escalable y fácil de depurar.
+
+*   **Centralizar el Manejo de Estado:**
+    *   **Problema:** El estado se pasa a través de múltiples niveles de componentes (`page.js` -> `MainForm.js` -> `List.js`, etc.). Esto se conoce como "prop drilling" y hace que el código sea difícil de seguir y refactorizar.
+    *   **Solución:** Implementar `React Context API`. Crear un `AppContext` que provea el estado global (como `dataUser`, `emailData`, `clientId`, `endpoints`, etc.) y las funciones para modificarlo. Los componentes que necesiten acceder al estado lo consumirán directamente del contexto, eliminando la necesidad de pasar props a través de componentes intermedios.
+*   **Refactorizar el Componente `MainForm.js`:**
+    *   **Problema:** `MainForm.js` es un "componente dios" que contiene la lógica para renderizar casi todas las secciones de la aplicación. Esto lo hace muy grande (más de 400 líneas) y difícil de entender.
+    *   **Solución:** Dividir `MainForm.js` en componentes más pequeños y especializados. Crear un componente "controlador" principal (podría seguir siendo `MainForm` o uno nuevo como `FlowController`) que maneje la lógica de qué paso mostrar, y luego componentes separados para cada paso del flujo:
+        *   `UserInfoForm.js` (para el formulario inicial de datos del usuario).
+        *   `RepresentativesList.js` (para mostrar la lista de senadores y diputados).
+        *   `ComposeEmail.js` (para la edición y envío del correo).
+        *   `ThankYouPage.js` (para la página de agradecimiento).
+*   **Abstraer las Llamadas a la API:**
+    *   **Problema:** La lógica para las llamadas `fetch` está mezclada dentro de los componentes (ej. en manejadores de eventos `click`).
+    *   **Solución:** Crear un "servicio" o capa de API. Aunque ya existe la carpeta `assets/petitions`, se puede formalizar más. Crear un único archivo, por ejemplo `app/services/api.js`, que exporte funciones para cada endpoint (`fetchRepresentatives`, `sendEmail`, `fetchMainContent`, etc.). Los componentes llamarían a estas funciones de servicio en lugar de implementar la lógica `fetch` directamente.
+
+#### 2. Experiencia de Usuario (UX) y Flujo (Impacto Medio)
+
+Estas mejoras se centran en hacer la aplicación más intuitiva y agradable para el usuario.
+
+*   **Mejorar el Manejo de Errores y Carga:**
+    *   **Problema:** Los mensajes de error son genéricos ("Please fill all fields") y los estados de carga podrían ser más informativos.
+    *   **Solución:**
+        *   **Errores Específicos:** Validar campo por campo y mostrar mensajes de error junto a los campos que fallan.
+        *   **Estados de Carga Mejorados:** En lugar de un spinner que detiene toda la vista, usar indicadores de carga en los botones (ej. "Enviando...") o "esqueletos" (placeholders que imitan la estructura del contenido que se está cargando).
+        *   **Manejo de Fallos de API:** Si una llamada a la API falla (ej. no se encuentran representantes), mostrar un mensaje claro y ofrecer una acción (ej. "No se encontraron representantes para ese código postal. ¿Quieres intentar con otro?").
+*   **Guardado Automático de Borradores:**
+    *   **Problema:** Si un usuario escribe un correo largo y cierra accidentalmente la pestaña, pierde todo su trabajo.
+    *   **Solución:** Usar `localStorage` para guardar automáticamente el contenido del asunto y el cuerpo del correo a medida que el usuario escribe. Si el usuario vuelve a la página, se puede restaurar el borrador.
+
+#### 3. Mejoras Funcionales (Bajo Impacto, pero valiosas)
+
+Estas son nuevas características que añaden valor al producto final.
+
+*   **Búsqueda y Filtro en la Lista de Representantes:**
+    *   **Problema:** Si la lista de representantes es larga, puede ser difícil encontrar a alguien específico.
+    *   **Solución:** Añadir un campo de búsqueda en la parte superior de la lista de representantes para filtrar por nombre o partido.
+*   **Enriquecer la Página de Agradecimiento (`ThankYou`):**
+    *   **Problema:** La página de agradecimiento es el final del flujo. Es una oportunidad perdida para mantener al usuario enganchado.
+    *   **Solución:** Además del mensaje de agradecimiento, añadir botones para compartir la campaña en redes sociales (Twitter, Facebook, etc.) y un llamado a la acción claro para "realizar otra acción" o "volver al inicio".

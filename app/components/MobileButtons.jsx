@@ -3,19 +3,17 @@ import Link from "next/link";
 import EmailIcon from "./icons/EmailIcon";
 import TweetIcon from "./icons/TweetIcon";
 import CallIcon from "./icons/CallIcon";
-
-
-const MobileButtons = ({primaryColor, secundaryColor, mps, emailFunction, tweetFunction })=>{
-
-
+import { useStateContext } from "../context/StateContext";
+const MobileButtons = ({ mps, emailFunction, tweetFunction })=>{
+  const { colors } = useStateContext();
 
     return(
         <div className="mobile-btns-cont">
                 {
                     mps.email? (
                         <EmailIcon
-                        primaryColor={primaryColor}
-                        secundaryColor={secundaryColor}
+                        primaryColor={colors.backgroundColor}
+                        secundaryColor={colors.linkColor}
                         emailFunction={emailFunction}
                         />
                     ) :
@@ -26,8 +24,8 @@ const MobileButtons = ({primaryColor, secundaryColor, mps, emailFunction, tweetF
                     mps.twitter && mps.clientId?.plan !== "basic" ? 
                     (
                         <TweetIcon
-                        primaryColor={primaryColor}
-                        secundaryColor={secundaryColor}
+                        primaryColor={colors.backgroundColor}
+                        secundaryColor={colors.linkColor}
                         tweetFunction={tweetFunction}
                         />
                     ):
@@ -43,8 +41,8 @@ const MobileButtons = ({primaryColor, secundaryColor, mps, emailFunction, tweetF
                             href={`tel:${mps.phone}`}
                         >
                             <CallIcon
-                                primaryColor={primaryColor}
-                                secundaryColor={secundaryColor}
+                                primaryColor={colors.backgroundColor}
+                                secundaryColor={colors.linkColor}
 
                             />
                         

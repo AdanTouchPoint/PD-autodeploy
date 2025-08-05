@@ -3,19 +3,21 @@ import Button from "react-bootstrap/cjs/Button";
 import { urlEncode } from "../assets/helpers/utilities";
 import MobileButtons from "./MobileButtons";
 import { fetchLeads } from "../assets/petitions/fetchLeads";
-const List = ({
-  setMany,
-  mps,
-  dataUser,
-  setEmailData,
-  tweet,
-  colors,
-  emailData,
-  backendURLBase,
-  endpoints,
-  clientId,
-  setActiveSection
-}) => {
+import { useStateContext } from "../context/StateContext";
+const List = ({ mps }) => {
+  const {
+    setMany,
+    dataUser,
+    setEmailData,
+    tweet,
+    colors,
+    emailData,
+    backendURLBase,
+    endpoints,
+    clientId,
+    setActiveSection,
+  } = useStateContext();
+
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   const handleMouseEnter = () => {
@@ -51,7 +53,7 @@ const List = ({
       ...mps,
     });
     setMany(false);
-    setActiveSection('emailform')
+    setActiveSection('emailform');
   };
   const clickPhone = () => {
     fetchLeads(
@@ -149,3 +151,4 @@ const List = ({
 };
 
 export default List;
+

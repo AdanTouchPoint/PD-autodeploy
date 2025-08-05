@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Share from "./Share";
+import { useStateContext } from "../context/StateContext";
+const ThankYou = () => {
+  const {
+    typData,
+    colors,
+    setActiveSection
+  } = useStateContext();
 
-const ThankYou = ({
-  typData,
-  colors,
-  setActiveSection
-}) => {
   const click = (e) => {
     e.preventDefault();
-    setActiveSection('mainform')
+    setActiveSection('mainForm')
   };
   console.log(typData)
   return (

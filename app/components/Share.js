@@ -5,19 +5,24 @@ import FacebookIcon from "./icons/FacebookIcon";
 import TwitterIcon from "./icons/TwitterIcon";
 import LinkedinIcon from "./icons/LinkedinIcon";
 import "./share.css";
-const Share = ({shareMessage,shareUrl, colors }) => {  
+import { useStateContext } from "../context/StateContext";
+const Share = () => {
+  const { typData, colors } = useStateContext();
+  const shareUrl = typData.shareUrl?.text || 'Fill this in your dashboard';
+  const shareMessage = typData.shareMessage?.text || 'Fill this in your dashboard';
+
   return (
     <div className="share-buttoneer" >
-      <FacebookShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} quote={shareMessage? shareMessage.replace(/"/g, '&quot;') :  'Fill this in your dashboard'} hashtag="#please fill" className="share-buttons">
+      <FacebookShareButton url={shareUrl} quote={shareMessage.replace(/"/g, '&quot;')} hashtag="#please fill" className="share-buttons">
       <FacebookIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor}  />
       </FacebookShareButton>
-      <TwitterShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'}className="share-buttons">
+      <TwitterShareButton url={shareUrl} title={shareMessage}className="share-buttons">
       <TwitterIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </TwitterShareButton>
-      <WhatsappShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'} className="share-buttons">
+      <WhatsappShareButton url={shareUrl} title={shareMessage} className="share-buttons">
       <WhatsappIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </WhatsappShareButton>
-      <LinkedinShareButton url={shareUrl? shareUrl: 'Fill this in your dashboard'} title={shareMessage? shareMessage : 'Fill this in your dashboard'} className="share-buttons">
+      <LinkedinShareButton url={shareUrl} title={shareMessage} className="share-buttons">
       <LinkedinIcon primaryColor={colors.backgroundColor} secundaryColor={colors.linkColor} />
       </LinkedinShareButton>
       <Head>
