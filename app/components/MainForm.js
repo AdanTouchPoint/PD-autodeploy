@@ -127,8 +127,6 @@ console.log({colors, activeSection, mainData, senator, mp, setMany, setEmailData
   };
 
   if (!mainData) return "loading datos";
-// if (!mp && !senator) return "loading datos";
-
   return (
     <div className={"contenedor main-form-flex-container"}>
       <div className={"form-container"}>

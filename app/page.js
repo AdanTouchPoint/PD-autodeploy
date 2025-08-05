@@ -1,6 +1,5 @@
 import MainFormWrapper from "./components/MainFormWrapper";
 import { fetchMainContent } from "./assets/petitions/fetchMainContent";
-import { fetchRepresentatives } from "./assets/petitions/fetchRepresentatives";
 
 async function Home() {
   const backendURLBase = process.env.NEXT_PUBLIC_URL;

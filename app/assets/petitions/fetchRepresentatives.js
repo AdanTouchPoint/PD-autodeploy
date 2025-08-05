@@ -1,4 +1,4 @@
-import { fetchData } from "./fetchData";
+
 
 const fetchRepresentatives = async (backendURLBaseServices,endpoints,clientId, postcode, setMp, setSenator, setShowLoadSpin) => {
     //const datos = await fetchData(petitionMethod, backendURLBase, endpoint, clientId, params)

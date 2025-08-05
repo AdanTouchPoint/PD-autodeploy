@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import MainForm from "./MainForm";
 import LoadingMainForm from "./LoadingMainForm";
 import { StateContext } from "../context/StateContext";
-import { all } from "axios";
 
 const MainFormWrapper = ({ initialData }) => {
   const [emailData, setEmailData] = useState({ userName: "" });
